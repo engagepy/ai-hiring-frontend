@@ -70,7 +70,11 @@ const JobsApp = () => {
         ...prev,
         {
           id: prev.length + 1,
-          ...newJob,
+          title: newJob.title,
+          description: newJob.description,
+          minExperience: parseInt(newJob.minExperience, 10),
+          cultureFitScore: parseInt(newJob.cultureFitScore, 10),
+          salaryRange: newJob.salaryRange,
         },
       ]);
       setNewJob({
