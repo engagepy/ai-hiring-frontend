@@ -13,11 +13,19 @@ interface FacialData {
   microExpressions: string[];
 }
 
+interface Analytics {
+  confidence: number;
+  authenticity: number;
+  relevance: number;
+  clarity: number;
+  knowledgeDepth: number;
+}
+
 export default function InterviewApp() {
   const [interviewStarted, setInterviewStarted] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
   const [transcription, setTranscription] = useState<string[]>([]);
-  const [analytics, setAnalytics] = useState({
+  const [analytics, setAnalytics] = useState<Analytics>({
     confidence: 0,
     authenticity: 0,
     relevance: 0,
@@ -211,7 +219,7 @@ export default function InterviewApp() {
   );
 
   // Component for displaying the analytics
-  const AnalyticsPanel = ({ analytics }: { analytics: typeof analytics }) => {
+  const AnalyticsPanel = ({ analytics }: { analytics: Analytics }) => {
     const metrics = [
       { name: 'Confidence', value: analytics.confidence, color: '#00c8ff' },
       { name: 'Authenticity', value: analytics.authenticity, color: '#9d00ff' },
@@ -366,12 +374,6 @@ export default function InterviewApp() {
             <div className="start-screen">
               <h1>AI Interview Assistant</h1>
               <p>Intelligent interview system with real-time analysis and feedback</p>
-              <button 
-                className="start-button"
-                onClick={startInterview}
-              >
-                Start Interview
-              </button>
             </div>
           ) : (
             <div className="interview-grid">
