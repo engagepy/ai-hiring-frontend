@@ -6,6 +6,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import HeaderComponent from './components/header';
 
+interface FacialData {
+  emotion: string;
+  attentiveness: number;
+  eyeContact: number;
+  microExpressions: string[];
+}
+
 export default function InterviewApp() {
   const [interviewStarted, setInterviewStarted] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
@@ -17,11 +24,11 @@ export default function InterviewApp() {
     clarity: 0,
     knowledgeDepth: 0,
   });
-  const [facialData, setFacialData] = useState({
+  const [facialData, setFacialData] = useState<FacialData>({
     emotion: 'neutral',
     attentiveness: 100,
     eyeContact: 90,
-    microExpressions: [] as string[],
+    microExpressions: [],
   });
 
 
@@ -114,7 +121,7 @@ export default function InterviewApp() {
   }, [interviewStarted, currentQuestion]);
 
   // Component for displaying the candidate video
-  const CandidateVideo = ({ facialData }: { facialData: typeof facialData }) => (
+  const CandidateVideo = ({ facialData }: { facialData: FacialData }) => (
     <div className="panel video-panel">
       <div className="video-container">
         <div className="video-placeholder">
@@ -241,7 +248,7 @@ export default function InterviewApp() {
   };
 
   // Component for displaying facial analysis
-  const FacialAnalysis = ({ facialData }: { facialData: typeof facialData }) => (
+  const FacialAnalysis = ({ facialData }: { facialData: FacialData }) => (
     <div className="panel facial-panel">
       <h2>Facial Analysis</h2>
       <div className="facial-metrics">
